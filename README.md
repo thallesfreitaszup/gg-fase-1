@@ -1,3 +1,4 @@
 Baixe o zip do projeto
+Abra o cmd 
 Va para o caminho do arquivo .jar
-selecione java -jar leituraArquivo.jar
+escreva no cmd: java -jar leituraArquivo.jar
