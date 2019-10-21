@@ -1,4 +1,1 @@
-Baixe o zip do projeto
-Abra o cmd 
-Va para o caminho do arquivo .jar
-escreva no cmd: java -jar leituraArquivo.jar
+Primeiro desafio : https://github.com/thallesfreitaszup/gg-fase-1/tree/master/gg-fase-1-master/leituraArquivo
