@@ -23,7 +23,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>com.br.zup.juniors.urlLeitura.App</mainClass>
+              <mainClass>com.br.zup.juniors.lerArquivo.App</mainClass>
             </manifest>
           </archive>
         </configuration>
