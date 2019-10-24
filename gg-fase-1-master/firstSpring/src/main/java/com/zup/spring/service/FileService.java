@@ -17,12 +17,12 @@ public class FileService {
 
 	public void escreverArquivo(String item) {
 		// TODO Auto-generated method stub
+		String linha = null;
 		BufferedWriter buffWriter;
 		BufferedReader buffReader;
-		String linha = "";
+		StringBuilder conteudoArquivo = new StringBuilder();
 		int itemEncontrado = 0;
 		String[] arrayItem = item.split(":");
-		String conteudoArquivo = "";
 		File arquivo = this.abreArquivo();
 		try {
 			buffReader = new BufferedReader(new FileReader(arquivo));
@@ -31,11 +31,11 @@ public class FileService {
 					linha = item;
 					itemEncontrado = 1;
 				}
-				conteudoArquivo+=linha+"\r\n";
+				conteudoArquivo.append(linha+"\r\n");
 			}
 			buffReader.close();
 			if(itemEncontrado == 0) {
-				conteudoArquivo+=item;
+				conteudoArquivo.append(item+"\r\n");
 			}
 			System.out.println(conteudoArquivo);
 			buffWriter = new BufferedWriter( new FileWriter(arquivo));
@@ -63,6 +63,7 @@ public class FileService {
 	public String procurarArquivo(String item) {
 		File arquivo = this.abreArquivo();
 		String linha = null;
+		
 		try {
 			BufferedReader buffReader = new BufferedReader(new FileReader(arquivo));
 			while(( linha = buffReader.readLine()) != null) {
@@ -87,18 +88,18 @@ public class FileService {
 		// TODO Auto-generated method stub
 		File arquivo = this.abreArquivo();
 		String linha = null;
-		String conteudoArquivo = "";
+		StringBuilder  conteudoArquivo = new StringBuilder();
 		try {
 			BufferedReader buffReader = new BufferedReader(new FileReader(arquivo));
 			while(( linha = buffReader.readLine()) != null) {
 				String []arrayLinha= linha.split(":");
 				if(!arrayLinha[0].equals(item)) {
-					conteudoArquivo+=linha+"\r\n";
+					conteudoArquivo.append(linha+"\r\n");
 				}
 			}
 			buffReader.close();
 			BufferedWriter buffWriter = new BufferedWriter( new FileWriter(arquivo));
-			buffWriter.write(conteudoArquivo);
+			buffWriter.write(conteudoArquivo.toString());
 			buffWriter.close();
 		}catch(IOException e) {
 			e.getStackTrace();
