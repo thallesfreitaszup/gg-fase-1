@@ -16,8 +16,8 @@ public class App
     	
     	 List<String> items = Arrays.asList(resposta.split(","));
     	 HashSet<String> titulosArtigos = Service.pegaTitulosItens(items);
-    	 ArrayList<String> arrayArtigos = new ArrayList<String>(titulosArtigos);
-    	 ArrayList<String> titulosOrdenados =  Service.ordenaTitulos(arrayArtigos);
+    	 List<String> arrayArtigos = new ArrayList<String>(titulosArtigos);
+    	 List<String> titulosOrdenados = Service.ordenaTitulos(arrayArtigos);
     	 System.out.println("Primeiros 20 artigos do reddit:");
 			for (String titulo : titulosOrdenados) {
 				System.out.println(titulo);
