@@ -10,7 +10,8 @@ public class Pasta {
 		// TODO Auto-generated method stub
 				
 			for(File arquivoLeitura: arquivo.listFiles()) { //Pega lista de arquivos
-				if(arquivoLeitura.isDirectory()) { // verifica se arquivo é diretorio 
+				if(arquivoLeitura.isDirectory()) {
+					System.out.println(arquivoLeitura.getName());// verifica se arquivo é diretorio 
 					lerArquivo(arquivoLeitura); // chama diretório recursivamente
 				}else {
 					System.out.println(arquivoLeitura.getName());  
