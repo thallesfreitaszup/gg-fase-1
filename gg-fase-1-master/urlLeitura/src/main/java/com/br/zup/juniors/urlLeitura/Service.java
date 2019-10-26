@@ -35,7 +35,7 @@ public class Service {
 		for (String item : items) {
 			
 			if(titulosArtigos.size() < 20 && item.contains("title") && items.get(contador+1).contains("event") ) {
-				item = item.substring(item.indexOf(":")+2,item.length()-1);
+				item = item.substring(item.indexOf(':')+2,item.length()-1);
 				titulosArtigos.add(item);
 
 				
@@ -45,17 +45,25 @@ public class Service {
 		return titulosArtigos;
 	}
 
-	public static ArrayList<String> ordenaTitulos(ArrayList<String> titulosArtigos) {
-		for (int i = 0;i<titulosArtigos.size();i++) {
-			for (int j = i+1;j<titulosArtigos.size();j++) {
-				if(titulosArtigos.get(i).toLowerCase().compareTo(titulosArtigos.get(j).toLowerCase())>0) {
-					String auxiliar = titulosArtigos.get(i);
-					titulosArtigos.set(i,titulosArtigos.get(j));
-					titulosArtigos.set(j,auxiliar);
-				}
-			}
-			
-		}
-		return titulosArtigos;
-	}
+	public static List<String> ordenaTitulos(List<String> titulosArtigos) {  
+	    int i,j;
+	    String key;   
+	    for (i = 1; i < titulosArtigos.size(); i++) 
+	    {  
+	        key = titulosArtigos.get(i);  
+	        j = i - 1;  
+
+	        /* Move elements of arr[0..i-1], that are  
+	        greater than key, to one position ahead  
+	        of their current position */
+	        while (j >= 0 && titulosArtigos.get(j).compareTo(key)> 0 ) 
+	        {  
+
+	            titulosArtigos.set(j + 1,titulosArtigos.get(j));  
+	            j = j - 1;  
+	        }  
+	        titulosArtigos.set(j + 1,key);  
+	    }  
+	    return titulosArtigos;
+	}  
 	}
