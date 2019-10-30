@@ -18,27 +18,29 @@ public class PersistenciaService {
 		this.dadosRepositorio = dadosRepositorio;
 	}
 	public Dados  escreverArquivo(String args) {
-		Dados dados = new Dados(args.split(":")[1]);
-		
-		
+		String []chaveValor = args.split(":");
+		Dados dados = new Dados(chaveValor[1]);
+		dados.setChave(chaveValor[0]);
 		return dadosRepositorio.save(dados);
 	}
-	public String procurarArquivo(String string) {
-		
-		return dadosRepositorio.findByValor(string).getValor();
+	public Dados procurarArquivo(String string) {
+		String []chaveValor = string.split(":");
+		return dadosRepositorio.findByChave(chaveValor[0]);
 	}
-	public int deletarItemArquivo(String string) {
-		Dados dados = new Dados(string);
+	public void deletarItemArquivo(String string) {
+		Dados dados = dadosRepositorio.findByChave(string);
 		this.dadosRepositorio.delete(dados);
-		return this.dadosRepositorio.findAll().size();
+		
 	}
 	public List<Dados> listarArquivo() {
-		List<Dados> Listadados = this.dadosRepositorio.findAll();
-		
-		 for (Dados dados :Listadados) {
+		List<Dados> listadados = this.dadosRepositorio.findAll();
+		if(listadados.size() == 0) {
+			System.out.println("Lista vazia");
+		}
+		 for (Dados dados :listadados) {
 			 System.out.println(dados);
 			
 		}
-		 return Listadados;
+		 return listadados;
 	}
 }

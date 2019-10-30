@@ -1,17 +1,16 @@
 package com.zup.spring;
 
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
-import org.hamcrest.beans.SamePropertyValuesAs;
-import org.junit.Assert;
-import org.junit.Before;
+import org.junit.Rule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.rules.ErrorCollector;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.mockito.stubbing.OngoingStubbing;
@@ -30,6 +29,8 @@ import com.zup.spring.model.DadosRepositorio;
 import com.zup.spring.service.PersistenciaService;
 @RunWith(SpringRunner.class)
 public class PersistenciaServiceTest {
+	 @Rule		
+	    public ErrorCollector collector = new ErrorCollector();	
 	private PersistenciaService persistenciaService;
 	
 	private Dados dados;
@@ -38,18 +39,23 @@ public class PersistenciaServiceTest {
 	private DadosRepositorio dadosRepositorio;
 	@BeforeEach
 	public void setup(){
-		this.persistenciaService = Mockito.mock(PersistenciaService.class);
+		this.persistenciaService = new PersistenciaService();
+		dadosRepositorio = Mockito.mock(DadosRepositorio.class);
+		
+		persistenciaService.setDadosRepositorio(dadosRepositorio);
 		dados = new Dados();
 		dados.setId(1);
 		dados.setValor("125");
+		dados.setChave("chave");
 		listaDados.add(dados);
+		
 	}
 	
 	@Test
 	public void testPersistencia(){
-		when(this.persistenciaService.escreverArquivo("set chave:125")).thenReturn(dados);
-		assertEquals(dados,this.persistenciaService.escreverArquivo("set chave:125"));
-		
+		when(this.persistenciaService.escreverArquivo("chave:125")).thenReturn(dados);
+		assertEquals(dados,this.persistenciaService.escreverArquivo("chave:125"));
+		listaDados = this.persistenciaService.listarArquivo();
 	}
 	
 	@Test
@@ -60,14 +66,17 @@ public class PersistenciaServiceTest {
 	}
 	@Test
 	public void testGet(){
-		when(this.persistenciaService.procurarArquivo("chave")).thenReturn("125");
-		assertEquals("125",this.persistenciaService.procurarArquivo("chave"));
+		when(persistenciaService.escreverArquivo("chave:125")).thenReturn(dados);
+		System.out.println("A: "+persistenciaService.listarArquivo());
+		System.out.println(dados);
+		when(this.persistenciaService.procurarArquivo("chave").getValor()).thenReturn(dados.getValor());
+		assertEquals("125",this.persistenciaService.procurarArquivo("chave").getValor());
 		
 	}
 	@Test
 	public void testDelete(){
-		when(this.persistenciaService.deletarItemArquivo("chave")).thenReturn(0);
-		assertEquals(0,this.persistenciaService.deletarItemArquivo("chave"));
+		doNothing().when(this.persistenciaService).deletarItemArquivo("chave");
+		assertEquals(0,this.persistenciaService.listarArquivo().size());
 		
 	}
 	

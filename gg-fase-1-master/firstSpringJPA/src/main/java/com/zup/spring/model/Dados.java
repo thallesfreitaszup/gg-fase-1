@@ -10,9 +10,31 @@ public class Dados {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+	private String chave;
+	
+
+
 	private String valor;
 	public Dados() {
 		
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Dados other = (Dados) obj;
+		if (chave == null) {
+			if (other.chave != null)
+				return false;
+		} else if (!chave.equals(other.chave)) {
+			return false;
+		}
+		return true;
 	}
 	public Dados(String args) {
 		this.valor = args;
@@ -29,36 +51,18 @@ public class Dados {
 	public void setValor(String valor) {
 		this.valor = valor;
 	}
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + id;
-		result = prime * result + ((valor == null) ? 0 : valor.hashCode());
-		return result;
+	public String getChave() {
+		return chave;
 	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Dados other = (Dados) obj;
-		if (valor != other.getValor())
-			return false;
-		if (valor == null) {
-			if (other.valor != null)
-				return false;
-		} else
-			if (!valor.equals(other.valor))
-				return false;
-		return true;
+	public void setChave(String chave) {
+		this.chave = chave;
 	}
+
 	@Override
 	public String toString() {
-		return "Dados [id=" + id + ", valor=" + valor + "]";
+		return "Dados [id=" + id + ", chave=" + chave + ", valor=" + valor + "]";
 	}
+	
+	
 
 }
