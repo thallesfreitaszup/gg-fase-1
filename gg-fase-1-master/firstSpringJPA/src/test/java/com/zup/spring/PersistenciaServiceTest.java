@@ -53,29 +53,31 @@ public class PersistenciaServiceTest {
 	
 	@Test
 	public void testPersistencia(){
-		when(this.persistenciaService.escreverArquivo("chave:125")).thenReturn(dados);
-		assertEquals(dados,this.persistenciaService.escreverArquivo("chave:125"));
+		Dados dados1= new Dados();
+		dados1.setChave("chave");
+		dados1.setValor("valor");
+		when(dadosRepositorio.save(dados1)).thenReturn(dados);
+	
+		assertEquals(dados,this.persistenciaService.escreverArquivo("chave:valor"));
 		listaDados = this.persistenciaService.listarArquivo();
 	}
 	
 	@Test
 	public void testeLista() {
-		when( this.persistenciaService.listarArquivo()).thenReturn(listaDados);
+		when(dadosRepositorio.findAll()).thenReturn(listaDados);
 		assertEquals(listaDados,this.persistenciaService.listarArquivo());
 		
 	}
 	@Test
 	public void testGet(){
-		when(persistenciaService.escreverArquivo("chave:125")).thenReturn(dados);
-		System.out.println("A: "+persistenciaService.listarArquivo());
-		System.out.println(dados);
-		when(this.persistenciaService.procurarArquivo("chave").getValor()).thenReturn(dados.getValor());
+		when(dadosRepositorio.findByChave("chave")).thenReturn(dados);
 		assertEquals("125",this.persistenciaService.procurarArquivo("chave").getValor());
 		
 	}
 	@Test
 	public void testDelete(){
-		doNothing().when(this.persistenciaService).deletarItemArquivo("chave");
+		doNothing().when(this.dadosRepositorio).delete(dados);
+		this.persistenciaService.deletarItemArquivo("chave");
 		assertEquals(0,this.persistenciaService.listarArquivo().size());
 		
 	}
