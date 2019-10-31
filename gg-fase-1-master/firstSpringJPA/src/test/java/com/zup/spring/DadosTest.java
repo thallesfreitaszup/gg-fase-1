@@ -1,26 +1,32 @@
 package com.zup.spring;
 
-import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.junit.jupiter.api.Test;
 
 import com.zup.spring.model.Dados;
-@ExtendWith(SpringExtension.class)
-public class DadosTest {
+
+class DadosTest {
 	Dados dados;
+	Dados dados1;
 	@BeforeEach
-	public void setup() {
+	public void setup(){
 		dados = new Dados();
 		dados.setChave("chave");
 		dados.setValor("123");
+		dados1 = new Dados();
+		dados1.setChave("chave");
+		dados1.setValor("123");
+	}
+	
+	@Test
+	void testToString() {
+		assertEquals("Dados [id=0, chave=chave, valor=123]",dados.toString());
 	}
 	@Test
-	public void testToString() {
-		Assertions.assertEquals("",dados.toString());
-		
+	void testEquals() {
+		assertTrue(dados.equals(dados1));
 	}
+
 }
