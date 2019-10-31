@@ -61,11 +61,16 @@ public class Service {
 		System.out.println("Requisição post");
 		StringBuilder mapAsString = Service.transformaMapString();
 		request = 	Service.criaRequest("http://httpbin.org/post","POST",mapAsString);
+		HttpResponse<String> response = null;
+		response = Service.enviaRequest(request);
+		System.out.println(response.body());
+	}
+	public static  HttpResponse<String> enviaRequest(HttpRequest request) {
+		HttpResponse<String> response = null;
 		HttpClient client = HttpClient.newHttpClient();
 		try {
 
-			HttpResponse<String> response = client.send(request,BodyHandlers.ofString());
-			System.out.println(response.body());
+			response = client.send(request,BodyHandlers.ofString());
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -76,42 +81,28 @@ public class Service {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return response;
 	}
 	public static void enviaDelete() {
 		// TODO Auto-generated method stub
 
-
+		
 		System.out.println("Requisição delete");
 		HttpClient client = HttpClient.newHttpClient();
-			HttpRequest request = Service.criaRequest("http://httpbin.org/delete","DELETE",null);
+		HttpRequest request = Service.criaRequest("http://httpbin.org/delete","DELETE",null);
 
-			HttpResponse<String> response = null;
-			try {
-				response = client.send(request,BodyHandlers.ofString());
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			System.out.println(response.body());
+		HttpResponse<String> response = null;
+		response = Service.enviaRequest(request);
+		System.out.println(response.body());
 	}
 	public static void enviaBearer() {
 		System.out.println("Requisição bearer");
-		// TODO Auto-generated method stub
+		// ODO Auto-generated method stub
+		
 		HttpClient client = HttpClient.newHttpClient();
 		HttpRequest request = Service.criaRequest("http://httpbin.org/bearer","BEARER",null);
-		try {
-			HttpResponse<String> response = client.send(request,BodyHandlers.ofString());
+		HttpResponse<String> response = Service.enviaRequest(request);
 			System.out.println("Resposta: "+response.body());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
 	}
 }
