@@ -3,9 +3,13 @@ package com.zup.spring;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import com.zup.spring.model.Dados;
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 public class DadosTest {
 	Dados dados;
 	@BeforeEach
@@ -15,7 +19,7 @@ public class DadosTest {
 		dados.setValor("123");
 	}
 	@Test
-	public void toStringTest() {
+	public void testToString() {
 		Assertions.assertEquals("",dados.toString());
 		
 	}
