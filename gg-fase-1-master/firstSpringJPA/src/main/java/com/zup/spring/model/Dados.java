@@ -39,6 +39,11 @@ public class Dados {
 	public Dados(String args) {
 		this.valor = args;
 	}
+	public Dados(String string, String string2) {
+		this.valor = string;
+		this.chave = string2;
+	}
+
 	public int getId() {
 		return id;
 	}

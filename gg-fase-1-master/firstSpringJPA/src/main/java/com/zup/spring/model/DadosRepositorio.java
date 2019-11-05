@@ -11,4 +11,5 @@ public interface DadosRepositorio extends CrudRepository<Dados,Integer> {
 	@Override
 	public List<Dados> findAll();
 	public Dados findByChave(String chave);
+	public Long deleteByChave(String chave);
 }

@@ -50,6 +50,8 @@ public class PersistenciaServiceTest {
 		listaDados.add(dados);
 		
 	}
+	//Esse teste busca verificar se dados são persistidos no banco de dados a partir da chamada
+	//pela service
 	
 	@Test
 	public void testPersistencia(){
@@ -59,7 +61,6 @@ public class PersistenciaServiceTest {
 		when(dadosRepositorio.save(dados1)).thenReturn(dados);
 	
 		assertEquals(dados,this.persistenciaService.escreverArquivo("chave:valor"));
-		listaDados = this.persistenciaService.listarArquivo();
 	}
 	
 	@Test
@@ -76,9 +77,8 @@ public class PersistenciaServiceTest {
 	}
 	@Test
 	public void testDelete(){
-		doNothing().when(this.dadosRepositorio).delete(dados);
-		this.persistenciaService.deletarItemArquivo("chave");
-		assertEquals(0,this.persistenciaService.listarArquivo().size());
+		when(this.dadosRepositorio.deleteByChave("chave")).thenReturn(1L);
+		assertEquals(1,this.persistenciaService.deletarItemArquivo("chave"));
 		
 	}
 	

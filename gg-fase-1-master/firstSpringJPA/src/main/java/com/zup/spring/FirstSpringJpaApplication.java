@@ -22,7 +22,6 @@ public class FirstSpringJpaApplication implements CommandLineRunner {
 	@Override
 	@Transactional
 	public void run(String... args) throws Exception {
-
 		Dados resultado;
 		
 			if(args.length != 0) {
