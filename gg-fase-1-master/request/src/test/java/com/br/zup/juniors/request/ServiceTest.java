@@ -1,6 +1,7 @@
 package com.br.zup.juniors.request;
 
-import static org.junit.Assert.assertEquals;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.net.URI;
@@ -11,7 +12,8 @@ import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.time.Duration;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
 
 public class ServiceTest {
 
@@ -26,10 +28,13 @@ public class ServiceTest {
 		assertEquals(request,Service.criaRequest("http://httpbin.org/post","POST",Service.transformaMapString()));
 		
 	}
-
 	@Test
 	public void testTransformaMapString() {
+		StringBuilder map = new StringBuilder();
+		map.append("{field:testing,id:123}");
+		assertEquals(map.toString(),Service.transformaMapString().toString());
 	}
+	
 	//Teste que verifica retorno de requisição post 
 	@Test
 	public void testEnviaPost() {
@@ -62,32 +67,54 @@ public class ServiceTest {
 				.header("Content-Type","Application/json").
 				POST(BodyPublishers.ofString(Service.transformaMapString().toString())).build();
 		HttpClient client = HttpClient.newHttpClient();
-		HttpResponse<String> response = client.send(request,BodyHandlers.ofString());
-		assertEquals(response.body(),Service.enviaRequest(request).body());
+		String string1 = "{\r\n" + 
+				"  \"args\": {}, \r\n" + 
+				"  \"data\": \"{field:testing,id:123}\", \r\n" + 
+				"  \"files\": {}, \r\n" + 
+				"  \"form\": {}, \r\n" + 
+				"  \"headers\": {\r\n" + 
+				"    \"Content-Length\": \"22\", \r\n" + 
+				"    \"Content-Type\": \"Application/json\", \r\n" + 
+				"    \"Host\": \"httpbin.org\", \r\n" + 
+				"    \"User-Agent\": \"Java-http-client/11.0.5\"\r\n" + 
+				"  }, \r\n" + 
+				"  \"json\": null, \r\n" + 
+				"  \"origin\": \"187.11.122.155, 187.11.122.155\", \r\n" + 
+				"  \"url\": \"https://httpbin.org/post\"\r\n" + 
+				"}";
+		assertEquals(string1.replaceAll("\r\n|\n",""),Service.enviaRequest(request).body().replaceAll("\n\r|\n",""));
 	}
 
 	@Test
 	public void testEnviaDelete() {
-		HttpRequest request = null;
-		request = HttpRequest.newBuilder()
-				.uri(URI.create("http://httpbin.org/delete")).
-				timeout(Duration.ofMinutes(1))
-				.header("Content-Type","Application/json").
-				DELETE().build();
-		assertEquals(Service.enviaRequest(request).body(),Service.enviaDelete());
+		HttpRequest request  = null;
+		String string1 = "{\r\n" + 
+				"  \"args\": {}, \r\n" + 
+				"  \"data\": \"\", \r\n" + 
+				"  \"files\": {}, \r\n" + 
+				"  \"form\": {}, \r\n" + 
+				"  \"headers\": {\r\n" + 
+				"    \"Content-Type\": \"Application/json\", \r\n" + 
+				"    \"Host\": \"httpbin.org\", \r\n" + 
+				"    \"User-Agent\": \"Java-http-client/11.0.5\"\r\n" + 
+				"  }, \r\n" + 
+				"  \"json\": null, \r\n" + 
+				"  \"origin\": \"187.11.122.155, 187.11.122.155\", \r\n" + 
+				"  \"url\": \"https://httpbin.org/delete\"\r\n" + 
+				"}\r\n" + 
+				"";
+				string1 =  string1.replaceAll("(\r\n|\n)","");
+		assertEquals(string1,Service.enviaDelete().replaceAll("(\r\n|\n)",""));
 	}
 
 	@Test
 	public void testEnviaBearer() {
-		HttpRequest request = null;
-		request = HttpRequest.newBuilder()
-				.uri(URI.create("http://httpbin.org/bearer")).
-				timeout(Duration.ofMinutes(1))
-				.header("Content-Type","Application/json").
-				header("Authorization","Bearer "+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c")
-				.build();
-		assertEquals(Service.enviaRequest(request).body(),Service.enviaBearer());
-		
+		String string1 = "{\r\n" + 
+				"  \"authenticated\": true, \r\n" + 
+				"  \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c\"\r\n" + 
+				"}";
+		string1=string1.replaceAll("\r\n|\n","");
+		assertEquals(string1,Service.enviaBearer().replaceAll("\r\n|\n",""));
 	}
 
 }
