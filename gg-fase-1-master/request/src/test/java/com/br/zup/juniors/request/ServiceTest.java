@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 
 
 public class ServiceTest {
-
+	//Teste que verifica se requisição está sendo feita com sucesso para a url.
 	@Test
 	public void testCriaRequest() {
 		HttpRequest request = null;
@@ -28,6 +28,7 @@ public class ServiceTest {
 		assertEquals(request,Service.criaRequest("http://httpbin.org/post","POST",Service.transformaMapString()));
 		
 	}
+	//Teste que verifica se transforma map em uma string com estrutura de json
 	@Test
 	public void testTransformaMapString() {
 		StringBuilder map = new StringBuilder();
@@ -84,7 +85,7 @@ public class ServiceTest {
 				"}";
 		assertEquals(string1.replaceAll("\r\n|\n",""),Service.enviaRequest(request).body().replaceAll("\n\r|\n",""));
 	}
-
+	//Teste que verifica se requisição delete é feita com sucesso
 	@Test
 	public void testEnviaDelete() {
 		HttpRequest request  = null;
@@ -106,7 +107,7 @@ public class ServiceTest {
 				string1 =  string1.replaceAll("(\r\n|\n)","");
 		assertEquals(string1,Service.enviaDelete().replaceAll("(\r\n|\n)",""));
 	}
-
+	//Teste que verifica se autenticação bearer é feita com sucesso
 	@Test
 	public void testEnviaBearer() {
 		String string1 = "{\r\n" + 
