@@ -47,7 +47,9 @@ public class ServiceTest
 		
 		assertEquals("[Using spring boot, How to make a test file]",Service.pegaTitulosItens(Arrays.asList(titulos.toString().split(","))).toString());
 	}
+	//Teste que verifica se itens foram ordenados
 	@Test
+	
 	public void ordenaTitulosItensTest(){
 		Collections.sort(listaString);
 		assertEquals(listaString,Service.ordenaTitulos(listaString));
