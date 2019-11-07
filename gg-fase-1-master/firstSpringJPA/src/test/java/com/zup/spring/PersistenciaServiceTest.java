@@ -55,10 +55,7 @@ public class PersistenciaServiceTest {
 	
 	@Test
 	public void testPersistencia(){
-		Dados dados1= new Dados();
-		dados1.setChave("chave");
-		dados1.setValor("valor");
-		when(dadosRepositorio.save(dados1)).thenReturn(dados);
+		when(dadosRepositorio.save(dados)).thenReturn(dados);
 	
 		assertEquals(dados,this.persistenciaService.escreverArquivo("chave:valor"));
 	}
@@ -75,6 +72,8 @@ public class PersistenciaServiceTest {
 		assertEquals("125",this.persistenciaService.procurarArquivo("chave").getValor());
 		
 	}
+	//Teste que busca deletar elemento pela chave e  mocka objeto repositorio
+	// para reproduzir comportamento desejado e deletar item
 	@Test
 	public void testDelete(){
 		when(this.dadosRepositorio.deleteByChave("chave")).thenReturn(1L);
