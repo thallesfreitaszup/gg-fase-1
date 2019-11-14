@@ -55,7 +55,7 @@ public class Service {
 		mapAsString.delete(mapAsString.length()-1, mapAsString.length()).append("}");
 		return mapAsString;
 	}
-	public static void enviaPost() {
+	public static String enviaPost() {
 		// TODO Auto-generated method stub
 		HttpRequest request = null;
 		System.out.println("Requisição post");
@@ -63,7 +63,7 @@ public class Service {
 		request = 	Service.criaRequest("http://httpbin.org/post","POST",mapAsString);
 		HttpResponse<String> response = null;
 		response = Service.enviaRequest(request);
-		System.out.println(response.body());
+		return response.body();
 	}
 	public static  HttpResponse<String> enviaRequest(HttpRequest request) {
 		HttpResponse<String> response = null;
@@ -83,7 +83,7 @@ public class Service {
 		}
 		return response;
 	}
-	public static void enviaDelete() {
+	public static String enviaDelete() {
 		// TODO Auto-generated method stub
 
 		
@@ -93,16 +93,16 @@ public class Service {
 
 		HttpResponse<String> response = null;
 		response = Service.enviaRequest(request);
-		System.out.println(response.body());
+		return response.body();
 	}
-	public static void enviaBearer() {
+	public static String enviaBearer() {
 		System.out.println("Requisição bearer");
 		// ODO Auto-generated method stub
 		
 		HttpClient client = HttpClient.newHttpClient();
 		HttpRequest request = Service.criaRequest("http://httpbin.org/bearer","BEARER",null);
 		HttpResponse<String> response = Service.enviaRequest(request);
-			System.out.println("Resposta: "+response.body());
+			return response.body();
 
 	}
 }

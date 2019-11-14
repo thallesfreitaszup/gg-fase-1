@@ -9,9 +9,9 @@ public class App
 {
     public static void main( String[] args )
     {
-    	Service.enviaPost();
-		Service.enviaDelete();
-		Service.enviaBearer();
+    	System.out.println(Service.enviaPost());
+		System.out.println(Service.enviaDelete());
+		System.out.println(Service.enviaBearer());
 
         
         
