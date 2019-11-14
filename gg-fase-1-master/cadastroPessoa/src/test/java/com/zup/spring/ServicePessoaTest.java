@@ -22,7 +22,9 @@ class ServicePessoaTest {
 		pessoaService = new PessoaService();
 		pessoaService.setPessoaRepository(pessoaRepository);
 	}
+	
 	@Test
+	//Testa se serviço de salvar é realizado com sucesso
 	void salvarTest() {
 		Pessoa pessoa = new Pessoa();
 		pessoa.setCpf("03227403129");
@@ -32,6 +34,7 @@ class ServicePessoaTest {
 		
 		
 	}
+	//Testa quando serviço de salvar não é feito com sucesso
 	@Test
 	void salvarTestEmpty() {
 		Pessoa pessoa = null;
@@ -41,6 +44,7 @@ class ServicePessoaTest {
 		
 		
 	}
+	//Testa se serviço de buscar é realizado com sucesso
 	@Test
 	void buscarTest() {
 		Pessoa pessoa = new Pessoa();
@@ -49,12 +53,14 @@ class ServicePessoaTest {
 		when(pessoaRepository.findByCpf("03227403129")).thenReturn(pessoa);
 		assertEquals(pessoa,pessoaService.buscar("03227403129"));	
 	}
+	//Testa quando serviço de buscar não é feito com sucesso
 	@Test
 	void buscarVazioTest() {
 		
 		when(pessoaRepository.findByCpf("444444444444")).thenReturn(null);
 		assertEquals(null,pessoaService.buscar("444444444444"));
 	}
+	//Testa se serviço de deletar é realizado com sucesso
 	@Test
 	void deletarTest() {
 		
@@ -63,6 +69,7 @@ class ServicePessoaTest {
 		
 		
 	}
+	//Testa se serviço de deletar vazio é realizado com sucesso
 	@Test
 void deletarVazioTest() {
 		
