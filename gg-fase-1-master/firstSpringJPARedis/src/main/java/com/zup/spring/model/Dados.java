@@ -10,8 +10,6 @@ import org.springframework.data.redis.core.RedisHash;
 @Entity
 public class Dados {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
 	private String chave;
 	
 
@@ -46,12 +44,6 @@ public class Dados {
 		this.chave = string2;
 	}
 
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
 	public String getValor() {
 		return valor;
 	}
@@ -67,7 +59,7 @@ public class Dados {
 
 	@Override
 	public String toString() {
-		return "Dados [id=" + id + ", chave=" + chave + ", valor=" + valor + "]";
+		return "Dados [chave=" + chave + ", valor=" + valor + "]";
 	}
 	
 	

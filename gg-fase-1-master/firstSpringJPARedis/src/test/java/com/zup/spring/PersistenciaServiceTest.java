@@ -44,7 +44,6 @@ public class PersistenciaServiceTest {
 		
 		persistenciaService.setDadosRepositorio(dadosRepositorio);
 		dados = new Dados();
-		dados.setId(1);
 		dados.setValor("125");
 		dados.setChave("chave");
 		listaDados.add(dados);
@@ -58,6 +57,7 @@ public class PersistenciaServiceTest {
 		when(dadosRepositorio.save(dados)).thenReturn(dados);
 	
 		assertEquals(dados,this.persistenciaService.escreverArquivo("chave:valor"));
+		
 	}
 	
 	@Test
