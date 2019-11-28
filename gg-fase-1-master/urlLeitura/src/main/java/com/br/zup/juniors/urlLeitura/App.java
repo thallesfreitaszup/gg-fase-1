@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Scanner;
 
 public class App 
 {
@@ -12,12 +13,13 @@ public class App
     {
     	
     	
+    	
     	String resposta = Service.leDadosUrl();
     	
     	 List<String> items = Arrays.asList(resposta.split(","));
     	 HashSet<String> titulosArtigos = Service.pegaTitulosItens(items);
     	 List<String> arrayArtigos = new ArrayList<String>(titulosArtigos);
-    	 List<String> titulosOrdenados =  Service.ordenaTitulos(arrayArtigos);
+    	 List<String> titulosOrdenados = Service.ordenaTitulos(arrayArtigos);
     	 System.out.println("Primeiros 20 artigos do reddit:");
 			for (String titulo : titulosOrdenados) {
 				System.out.println(titulo);

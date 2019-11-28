@@ -11,6 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 
 public class Service {
+	//Metodo que retorna string com conteudo da página 
 	public static String leDadosUrl(){
 	
 	HttpClient client = HttpClient.newHttpClient();
@@ -27,7 +28,8 @@ public class Service {
 		e.printStackTrace();
 	}
 	 return response.body();	}
-
+	//Método que itera sobre conteúdo da url e filtra os 20 itens que representam
+	//titulos dos artigos do reddit
 	public static HashSet<String> pegaTitulosItens(List<String> items) {
 		// TODO Auto-generated method stub
 		int contador = 0;
@@ -44,26 +46,26 @@ public class Service {
 		}
 		return titulosArtigos;
 	}
-
+	//Metodo que ordena titulos dos artigos do reddit através do algoritmo insertion sort
 	public static List<String> ordenaTitulos(List<String> titulosArtigos) {  
-	    int i,j;
-	    String key;   
-	    for (i = 1; i < titulosArtigos.size(); i++) 
-	    {  
-	        key = titulosArtigos.get(i);  
-	        j = i - 1;  
-
-	        /* Move elements of arr[0..i-1], that are  
-	        greater than key, to one position ahead  
-	        of their current position */
-	        while (j >= 0 && titulosArtigos.get(j).compareTo(key)> 0 ) 
-	        {  
-
-	            titulosArtigos.set(j + 1,titulosArtigos.get(j));  
-	            j = j - 1;  
-	        }  
-	        titulosArtigos.set(j + 1,key);  
-	    }  
-	    return titulosArtigos;
-	}  
+		    int i,j;
+		    String key;   
+		    for (i = 1; i < titulosArtigos.size(); i++) 
+		    {  
+		        key = titulosArtigos.get(i);  
+		        j = i - 1;  
+		  
+		        /* Move elements of arr[0..i-1], that are  
+		        greater than key, to one position ahead  
+		        of their current position */
+		        while (j >= 0 && titulosArtigos.get(j).compareTo(key)> 0 ) 
+		        {  
+		        	
+		            titulosArtigos.set(j + 1,titulosArtigos.get(j));  
+		            j = j - 1;  
+		        }  
+		        titulosArtigos.set(j + 1,key);  
+		    }  
+		    return titulosArtigos;
+		}  	
 	}
