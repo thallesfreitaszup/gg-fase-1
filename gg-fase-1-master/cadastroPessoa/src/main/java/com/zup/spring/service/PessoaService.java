@@ -10,12 +10,7 @@ import com.zup.spring.repository.PessoaRepository;
 public class PessoaService {
 	@Autowired
 	PessoaRepository pessoaRepository;
-	public PessoaRepository getPessoaRepository() {
-		return pessoaRepository;
-	}
-	public void setPessoaRepository(PessoaRepository pessoaRepository) {
-		this.pessoaRepository = pessoaRepository;
-	}
+	
 	//Serviço para salvar pessoa no banco de dados
 	public Pessoa salvar(Pessoa pessoa){
 		return pessoaRepository.save(pessoa);

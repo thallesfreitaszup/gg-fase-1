@@ -17,11 +17,10 @@ import com.zup.spring.model.Pessoa;
 import com.zup.spring.service.PessoaService;
 
 @RestController
-@RequestMapping("/pessoa")
 public class PessoaController {
 	@Autowired
 	PessoaService pessoaService;
-	@PostMapping("")
+	@PostMapping("/pessoa")
 	//Utilizo requestbody por seu suporte ao formato json e por automaticamente 
 	// transformar string json em um objeto java
 	//Após receber objeto pessoa ocorre chamada a classe service que 
@@ -37,7 +36,7 @@ public class PessoaController {
 	}
 	//Utilizo PathVariable para receber parametro da url 
 	// e faço chamada da Service de acesso ao banco de dados com os dados da url
-	@GetMapping("/{cpf}")
+	@GetMapping("/pessoa/{cpf}")
 	public ResponseEntity<String> procurar(@PathVariable String cpf){
 
 		Pessoa pessoaBD = pessoaService.buscar(cpf);
@@ -52,7 +51,7 @@ public class PessoaController {
 	//Dados são enviados pelo body da requisição e transformados em objeto java 
 	//pela tag requestbody
 	//Após isso,faço chamada da Service para alterar os dados no banco de dados
-	@PutMapping("")
+	@PutMapping("/pessoa")
 	public ResponseEntity<String> atualizar(@RequestBody Pessoa pessoa){
 		if(pessoaService.alterar(pessoa) == 1) {
 			return  new ResponseEntity<>("Alterado com sucesso",HttpStatus.OK);
@@ -60,16 +59,11 @@ public class PessoaController {
 		return  new ResponseEntity<>("Alterado sem sucesso",HttpStatus.BAD_REQUEST);
 		
 	}
-	public PessoaService getPessoaService() {
-		return pessoaService;
-	}
-	public void setPessoaService(PessoaService pessoaService) {
-		this.pessoaService = pessoaService;
-	}
+	
 	//Utilizo deleteMapping para mapear a requisição delete
 	//Utilizo pathvariable para pegar o parametro da requisição
 	//Utilizo a classe Service para deletar o dado no banco de dados
-	@DeleteMapping("/{cpf}")
+	@DeleteMapping("/pessoa/{cpf}")
 	public ResponseEntity<String> deletar(@PathVariable("cpf") String cpf){
 		int deletado = pessoaService.deletar(cpf);
 		if(deletado == 1) {
