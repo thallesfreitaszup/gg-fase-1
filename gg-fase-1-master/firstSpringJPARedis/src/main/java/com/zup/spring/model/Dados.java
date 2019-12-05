@@ -6,14 +6,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import org.springframework.data.redis.core.RedisHash;
-@RedisHash("Dados")
+@RedisHash(value="dados")
 @Entity
 public class Dados {
+	@org.springframework.data.annotation.Id
 	@Id
 	private String chave;
-	
-
-
 	private String valor;
 	public Dados() {
 		

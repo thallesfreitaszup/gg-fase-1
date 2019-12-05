@@ -21,6 +21,7 @@ public class PersistenciaService {
 	@Autowired
 	public PersistenciaService(RedisTemplate<String,Object> template) {
 		this.template = template;
+		this.hashOperations = template.opsForHash();
 	}
 	public PersistenciaService() {
 		
@@ -28,10 +29,7 @@ public class PersistenciaService {
 	public DadosRepositorio getDadosRepositorio() {
 		return dadosRepositorio;
 	}
-	@PostConstruct
-	private void initializeHashOperations() {
-		this.hashOperations = template.opsForHash();
-	}
+	
 	public void setDadosRepositorio(DadosRepositorio dadosRepositorio) {
 		this.dadosRepositorio = dadosRepositorio;
 	}
